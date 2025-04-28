@@ -1,9 +1,11 @@
-import Home from "./pages/Home/Home.tsx";
+import {Chat} from "./pages/Chat/Chat.tsx";
 
-function App() {
+
+export const App = () => {
     return (
-        <Home/>
+        <div className="app-background">
+            <Chat/>
+        </div>
     )
 }
 
-export default App

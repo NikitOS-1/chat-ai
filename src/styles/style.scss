@@ -1,0 +1,33 @@
+@use "_reset.scss";
+
+:root {
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.app-background {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+                  45deg,
+                  #ff007a,
+                  #a100ff,
+                  #0078ff,
+                  #00e1ff,
+                  #00ff94,
+                  #ffcb00,
+                  #ff0055
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
