@@ -7,4 +7,14 @@
   color: #1e2022;
   font-size: 1rem;
   outline: none;
+  transition: background 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  &:focus {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 0 3px rgba(0, 120, 255, 0.4);
+  }
 }

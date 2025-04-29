@@ -8,11 +8,7 @@ interface messageStateI {
 }
 
 const initialState: messageStateI = {
-    messages: [{
-        id: Date.now(),
-        sender: MessageType.BOT,
-        text: "Hi, I can help you with anything."
-    }],
+    messages: [],
 };
 
 const messageSlice = createSlice({

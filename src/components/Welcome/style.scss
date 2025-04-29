@@ -1,0 +1,18 @@
+.intro {
+  text-align: center;
+  margin-top: 20%;
+  font-size: 3.5rem;
+  color: transparent;
+  background: linear-gradient(90deg, rgba(14, 0, 34, 0.8) 0%, rgba(2, 48, 120, 0.75) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  padding: 1rem;
+  position: relative;
+  z-index: 1;
+  line-height: 90px;
+
+  @media (max-width: 640px) {
+    font-size: 2.5rem;
+    line-height: 60px;
+  }
+}

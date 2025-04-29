@@ -9,6 +9,7 @@ import {addMessage} from "../../store/slices/messageSlice.ts";
 import {MessageType} from "../../common/enums/enum.ts";
 import {MessageI} from "../../common/interface/interface.ts";
 import {getMessageFromAI} from "../../services/chatService.ts";
+import {WelcomeMessage} from "../../components/Welcome/WelcomeMessage.tsx";
 
 
 export const Chat = () => {
@@ -65,9 +66,12 @@ export const Chat = () => {
         <div className="chat-container">
             <div className="chat-window">
                 <div className="chat-messages">
-                    {messages.map(({id, sender, text}: MessageI) => (
-                        <Message key={id} sender={sender} text={text}/>
-                    ))}
+                    {messages.length === 0 ?
+                        <WelcomeMessage/>
+                        :
+                        messages.map(({id, sender, text}: MessageI) => (
+                            <Message key={id} sender={sender} text={text}/>
+                        ))}
                     {isBotTypingText && (
                         <div className="bot-typing">
                             <Message sender={MessageType.BOT} typing={isBotTypingText}/>
