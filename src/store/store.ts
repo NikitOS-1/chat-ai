@@ -1,5 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
-import messageReducer from "./slices/messageSlice.ts";
+import messageReducer from './slices/messageSlice';
+import {wsMiddleware} from './middlewares/wsMiddleware';
 
 const reducer = {
     message: messageReducer,
@@ -7,6 +8,8 @@ const reducer = {
 
 export const store = configureStore({
     reducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(wsMiddleware),
     devTools: true,
 });
 
