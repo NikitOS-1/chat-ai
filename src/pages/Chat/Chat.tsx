@@ -5,11 +5,10 @@ import {Button} from "../../components/Button/Button.tsx";
 import React, {useEffect, useRef, useState} from "react";
 import {useAppSelector} from "../../helpers/useAppSelector.ts";
 import {useAppDispatch} from "../../helpers/useAppDispatch.ts";
-import {addMessage} from "../../store/slices/messageSlice.ts";
 import {MessageType} from "../../common/enums/enum.ts";
 import {MessageI} from "../../common/interface/interface.ts";
-import {getMessageFromAI} from "../../services/chatService.ts";
 import {WelcomeMessage} from "../../components/Welcome/WelcomeMessage.tsx";
+import {wsConnect, wsDisconnect, wsSendMessage} from "../../store/actions/wsActions.ts";
 
 
 export const Chat = () => {
@@ -19,44 +18,39 @@ export const Chat = () => {
 
     const dispatch = useAppDispatch();
     const messages = useAppSelector((state) => state.message.messages);
-
     const bottomRef = useRef<HTMLDivElement>(null);
 
-    const handleSubmit = async () => {
-        if (question.trim() === '') return;
+    const handleSubmit = () => {
+        if (!question.trim()) return;
 
-        dispatch(addMessage({id: Date.now(), sender: MessageType.USER, text: question}));
-
-        setQuestion('');
         setIsLoading(true);
         setIsBotTypingText(true);
 
-        try {
-            const response = await getMessageFromAI({message: question});
+        dispatch(wsSendMessage(question));
 
-            dispatch(addMessage({
-                id: Date.now(),
-                sender: MessageType.BOT,
-                text: response
-            }));
-        } catch (error) {
-            console.error("Error sending message:", error);
-            dispatch(addMessage({
-                id: Date.now(),
-                sender: MessageType.BOT,
-                text: error as string
-            }));
-        } finally {
+        setQuestion('');
+
+        setTimeout(() => {
             setIsLoading(false);
             setIsBotTypingText(false);
-        }
+        }, 2000);
     };
+
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             handleSubmit();
         }
     };
+
+    useEffect(() => {
+        dispatch(wsConnect());
+
+        return () => {
+            dispatch(wsDisconnect());
+        };
+    }, [dispatch]);
+
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView({behavior: 'smooth'});
