@@ -48,6 +48,7 @@ export const Chat = () => {
 
         return () => {
             dispatch(wsDisconnect());
+            dispatch(wsDisconnect());
         };
     }, [dispatch]);
 
