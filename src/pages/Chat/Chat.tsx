@@ -39,11 +39,7 @@ export const Chat = () => {
     }, 2000);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleSubmit();
-    }
-  };
+
 
   useEffect(() => {
     dispatch(wsConnect());
